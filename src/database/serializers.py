@@ -7,8 +7,8 @@ from src.database.exceptions import SerializationFailedError
 class UserDeserializer:
     date_format = "%Y-%m-%d"
 
-    def __init__(self, user_json: dict):
-        self.user_raw = user_json
+    def __init__(self, user_raw: dict):
+        self.user_raw = user_raw
         self.user_true = {}
         try:
             self.user = self.__deserialize()
