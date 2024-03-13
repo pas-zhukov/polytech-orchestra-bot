@@ -10,6 +10,7 @@ on:
 jobs:
   run_tests:
     runs-on: [ubuntu-latest]
+    environment: env1
     steps:
       # Чекаутим код
       - uses: actions/checkout@master
@@ -21,8 +22,6 @@ jobs:
       - name: Install requirements
         # Устанавливаем зависимости
         run: pip install -r requirements.txt
-      - name: load envs
-        run: export DATABASE_TOKEN='${{ secrets.DB_TKN }}'
       - name: Run tests
         run: coverage run -m pytest
       - name: Tests report
