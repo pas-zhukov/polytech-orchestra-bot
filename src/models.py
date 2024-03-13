@@ -13,7 +13,7 @@ class Concerto:
 class User:
     def __init__(self, name: str, birthdate: date, instrument: str,
                  tg: str, vk: str, is_active: bool,
-                 activity_start: date, activity_end: date) -> None:
+                 activity_start: date, activity_end: date):
         self.name: str = name
         self.birthdate: date = birthdate
         self.instrument: str = instrument
@@ -22,3 +22,7 @@ class User:
         self.is_active: bool = is_active
         self.activity_start: date = activity_start
         self.activity_end: date = activity_end
+
+    @staticmethod
+    def get_all_users():
+        ...
