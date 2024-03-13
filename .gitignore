@@ -1,0 +1,9 @@
+# IntelliJ project files
+.idea
+pycache
+*.iml
+out
+gen
+
+# Other
+.env
