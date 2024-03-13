@@ -19,14 +19,14 @@ def get_all_users(database_token: str):
 
 def get_active_users(database_token: str):
     all_users = get_all_users(database_token)
-    return list(filter(lambda user: user.active, all_users))
+    return list(filter(lambda user: user.is_active, all_users))
 
 
 def get_active_users_by_birthdate(database_token: str, birthdate: date):
     # TODO: переписать с фильтрацией на этапе запроса к БД
-    all_users = get_active_users(database_token)
+    active_users = get_active_users(database_token)
     birthday_match_users = []
-    for user in all_users:
+    for user in active_users:
         if not user.birthdate:
             continue
         if user.birthdate.strftime("%d.%m") == birthdate.strftime("%d.%m"):
