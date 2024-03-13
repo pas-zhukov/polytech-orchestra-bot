@@ -11,6 +11,8 @@ jobs:
   run_tests:
     runs-on: [ubuntu-latest]
     environment: env1
+    env:
+      DATABASE_TOKEN: ${{ secrets.DATABASE_TOKEN }}
     steps:
       # Чекаутим код
       - uses: actions/checkout@master
