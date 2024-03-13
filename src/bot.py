@@ -1,6 +1,6 @@
 from telebot import TeleBot
 
-from utils.messages import get_message_for_today
+from src.utils.messages import get_message_for_today
 
 
 class OrchestraBot:

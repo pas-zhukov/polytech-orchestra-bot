@@ -4,7 +4,7 @@
 INSTALL_PATH="/opt/polytech-orchestra-bot/"
 SERVICE_PATH="/etc/systemd/system/orchestra-bot-schedule.service"
 TIMER_PATH="/etc/systemd/system/orchestra-bot-schedule.timer"
-TARGET="rehearsal_scheduled_bot.py"
+TARGET="whitehall_checker_bot.py"
 
 # shellcheck disable=SC2164
 cd ${INSTALL_PATH}

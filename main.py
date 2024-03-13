@@ -10,7 +10,6 @@ def main():
     bot_token = env.str("TG_BOT_TOKEN")
     group_id = env.str("GROUP_ID")
     bot = TeleBot(bot_token)
-    OrchestraBot(bot_token, group_id)
 
 
 if __name__ == "__main__":
