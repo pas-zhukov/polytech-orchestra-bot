@@ -21,6 +21,8 @@ jobs:
       - name: Install requirements
         # Устанавливаем зависимости
         run: pip install -r requirements.txt
+      - name: load envs
+        run: export $DATABASE_TOKEN=${{ secrets.DB_TKN }}
       - name: Run tests
         run: coverage run -m pytest
       - name: Tests report
