@@ -1,3 +1,4 @@
+import pprint
 from datetime import datetime
 
 from src.models import User
@@ -20,13 +21,13 @@ class UserDeserializer:
     def __deserialize(self):
         self.user_true = {
             "name": self.user_raw["ФИО"],
-            "birthdate": datetime.strptime(self.user_raw["Дата рождения"], UserDeserializer.date_format).date(),
+            "birthdate": datetime.strptime(self.user_raw["Дата рождения"], UserDeserializer.date_format).date() if self.user_raw["Дата рождения"] else None,
             "instrument": self.user_raw["Инструмент"][0]["value"],
             "tg": self.user_raw["Телеграм"],
             "vk": self.user_raw["ВКонтакте"],
             "is_active": bool(self.user_raw["Активен"]),
-            "activity_start": datetime.strptime(self.user_raw["Старт активности"], UserDeserializer.date_format).date(),
-            "activity_end": datetime.strptime(self.user_raw["Конец активности"], UserDeserializer.date_format).date()
+            "activity_start": datetime.strptime(self.user_raw["Старт активности"], UserDeserializer.date_format).date() if self.user_raw["Старт активности"] else None,
+            "activity_end": datetime.strptime(self.user_raw["Конец активности"], UserDeserializer.date_format).date() if self.user_raw["Конец активности"] else None
         }
         return self.__create_user()
 
