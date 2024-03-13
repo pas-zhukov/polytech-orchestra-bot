@@ -61,6 +61,8 @@ echo "WantedBy=timers.target"
 
 
 systemctl daemon-reload
-systemctl enable pk_metrics.service
+systemctl enable orchestra-bot-schedule.service
+systemctl enable orchestra-bot-schedule.timer
+systemctl start orchestra-bot-schedule.timer
 
 
