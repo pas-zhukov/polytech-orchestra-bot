@@ -17,9 +17,14 @@ def get_all_users(database_token: str):
     return [UserDeserializer(all_users[i]).user for i in range(len(all_users))]
 
 
-def get_users_by_birthdate(database_token: str, birthdate: date):
-    # TODO: переписать с фильтрацией на этапе запроса к БД
+def get_active_users(database_token: str):
     all_users = get_all_users(database_token)
+    return list(filter(lambda user: user.active, all_users))
+
+
+def get_active_users_by_birthdate(database_token: str, birthdate: date):
+    # TODO: переписать с фильтрацией на этапе запроса к БД
+    all_users = get_active_users(database_token)
     birthday_match_users = []
     for user in all_users:
         if not user.birthdate:

@@ -7,8 +7,8 @@ from datetime import datetime, date
 from telebot import TeleBot
 from environs import Env
 
-from src.database.controllers import get_users_by_birthdate
-from src.utils.messages import get_user_card
+from src.database.controllers import get_active_users_by_birthdate
+from src.utils.messages import get_birthday_message
 
 
 def main():
@@ -19,10 +19,10 @@ def main():
     admin_ids = env.list("ADMIN_IDS")
     bot = TeleBot(bot_token)
 
-    birthday_today_users = get_users_by_birthdate(database_token, datetime.now().date())
+    birthday_today_users = get_active_users_by_birthdate(database_token, datetime.now().date())
 
     for user in birthday_today_users:
-        message = get_user_card(user)
+        message = get_birthday_message(user)
         for admin in admin_ids:
             bot.send_message(admin, message)
 

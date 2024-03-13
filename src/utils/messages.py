@@ -16,8 +16,8 @@ def get_message_for_today() -> str:
     return message
 
 
-def get_user_card(user: User) -> str:
-    message = (f"Привет! Сегодня ({user.birthdate.strftime('%d.%m.%Y')}) день рождения у {user.name}. "
+def get_birthday_message(user: User) -> str:
+    message = (f"Привет! Сегодня день рождения у {user.name}. Дата рождения: {user.birthdate.strftime('%d.%m.%Y')}\n"
                f"Он/она играет в оркестре на {user.instrument} с {user.activity_start.strftime('%d.%m.%Y')}.\n"
                f"Контактные данные: Телеграм[{user.tg}], ВКонтакте[{user.vk}]")
     return message
