@@ -18,8 +18,8 @@ virtualenv venv
 ./venv/bin/pip install -r requirements.txt
 
 # Make scripts runnable
-chmod +x ./birthday_notificator_install.sh
-chmod +x ./whitehall_checker_install.sh
+# chmod +x ./birthday_notificator_install.sh
+# chmod +x ./whitehall_checker_install.sh
 
 ./birthday_notificator_install.sh
 ./whitehall_checker_install.sh
