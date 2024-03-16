@@ -39,9 +39,6 @@ echo "Description=Orchestra one-time birthday check bot"
 echo ""
 echo "[Timer]"
 echo "OnCalendar=12:00:00"
-echo ""
-echo "[Install]"
-echo "WantedBy=timers.target"
 
 
 systemctl daemon-reload

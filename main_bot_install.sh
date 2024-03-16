@@ -15,7 +15,6 @@ fi
 # Creating service in systemd
 
 touch $SERVICE_PATH
-# Fill .service file
 exec 1> $SERVICE_PATH
 echo "[Unit]"
 echo "Description=Orchestra main bot"

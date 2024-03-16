@@ -39,9 +39,6 @@ echo "Description=Orchestra one-time schedule check bot"
 echo ""
 echo "[Timer]"
 echo "OnCalendar=Mon,Fri *-09..12,01..05-* 15:00:00"
-echo ""
-echo "[Install]"
-echo "WantedBy=timers.target"
 
 
 systemctl daemon-reload
