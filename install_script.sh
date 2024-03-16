@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 INSTALL_PATH="/opt/polytech-orchestra-bot/"
 
 #Check user rights
