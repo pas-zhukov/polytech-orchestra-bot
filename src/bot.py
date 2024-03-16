@@ -10,11 +10,11 @@ class OrchestraBot:
         self.bot = TeleBot(token)
         self.group_id = group_id
 
-        @self.bot.message_handler(commands=['start'])
+        @self.bot.message_handler(commands=['start', 'today'])
         def send_start(message):
             self.bot.send_message(message.chat.id, get_message_for_today(), allow_sending_without_reply=True)
 
-        @self.bot.message_handler(commands=['опрос', 'poll'])
+        @self.bot.message_handler(commands=['poll'])
         def rehearsal_today(message):
             self.bot.send_poll(message.chat.id,
                                question=f'Репетиция сегодня, {datetime.now().strftime("%d.%m")}',
@@ -32,7 +32,7 @@ class OrchestraBot:
         def help_mes(message):
             self.bot.send_message(message.chat.id,
                                   message.from_user.first_name + ', привет!\n'
-                                                                      '/start - Проверить доступность Белого Зала сегодня.\n'
+                                                                      '/start или /today - Проверить доступность Белого Зала сегодня.\n'
                                                                       '/next - Проверить доступность Белого Зала на следующей репетиции.\n'
                                                                       '/poll - Запустить опрос: явка сегодня.\n'
                                                                       '')
