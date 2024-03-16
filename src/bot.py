@@ -2,7 +2,7 @@ from datetime import datetime
 
 from telebot import TeleBot
 
-from src.utils.messages import get_message_for_today, get_message_for_next_rehearsal
+from src.utils.messages import get_message_for_next_rehearsal, get_message_for_today
 
 
 class OrchestraBot:

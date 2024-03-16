@@ -6,7 +6,7 @@
 from telebot import TeleBot
 from environs import Env
 
-from src.utils.messages import get_message_for_today
+from src.utils.messages import get_message_for_today_rehearsal
 
 
 def main():
@@ -15,7 +15,7 @@ def main():
     bot_token = env.str("TG_BOT_TOKEN")
     group_id = env.str("GROUP_ID")
     bot = TeleBot(bot_token)
-    message = get_message_for_today()
+    message = get_message_for_today_rehearsal()
     bot.send_message(group_id, message)
 
 

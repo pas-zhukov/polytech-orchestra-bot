@@ -10,11 +10,21 @@ def get_message_for_today() -> str:
         concerto = get_concerto_today()
         message = (f"Согласно расписанию Белого Зала, сегодня там концерт.\n"
                    f"Название: {concerto.title}\n"
+                   f"Начало концерта: {concerto.get_stringed_time()}\n\n")
+    except ConcertosNotFoundException:
+        message = f"Согласно расписанию Белого Зала, сегодня там концертов не запланировано."
+    return message
+
+
+def get_message_for_today_rehearsal() -> str:
+    try:
+        concerto = get_concerto_today()
+        message = (f"Согласно расписанию Белого Зала, сегодня там концерт.\n"
+                   f"Название: {concerto.title}\n"
                    f"Начало концерта: {concerto.get_stringed_time()}\n\n"
                    f"Репетируем в 206.")
     except ConcertosNotFoundException:
         message = f"Согласно расписанию Белого Зала, сегодня там концертов не запланировано. Репетируем в зале!"
-
     return message
 
 
