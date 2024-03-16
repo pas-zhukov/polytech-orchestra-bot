@@ -28,5 +28,14 @@ class OrchestraBot:
         def next_rehearsal(message):
             self.bot.send_message(message.chat.id, get_message_for_next_rehearsal())
 
+        @self.bot.message_handler(commands=['help'])
+        def help_mes(message):
+            self.bot.send_message(message.chat.id,
+                                  message.from_user.first_name + ', привет!\n'
+                                                                      '/start - Проверить доступность Белого Зала сегодня.\n'
+                                                                      '/next - Проверить доступность Белого Зала на следующей репетиции.\n'
+                                                                      '/poll - Запустить опрос: явка сегодня.\n'
+                                                                      '')
+
     def start(self):
         self.bot.infinity_polling()
