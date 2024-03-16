@@ -8,7 +8,7 @@ TIMER_PATH="/etc/systemd/system/${SERVICE_NAME}.timer"
 TARGET="whitehall_checker_bot.py"
 
 # Remove old version
-if [[ -d $SERVICE_PATH ]]; then
+if [[ -f $SERVICE_PATH ]]; then
     echo "---"
     rm -v $SERVICE_PATH
     rm -v $TIMER_PATH

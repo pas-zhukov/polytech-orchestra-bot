@@ -7,7 +7,8 @@ SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}.service"
 TARGET="main_bot.py"
 
 # Remove old version
-if [[ -d $SERVICE_PATH ]]; then
+if [[ -f $SERVICE_PATH ]]; then
+    systemctl stop ${SERVICE_NAME}.service
     echo "---"
     rm -v $SERVICE_PATH
 fi
