@@ -22,5 +22,6 @@ virtualenv venv
 
 ./birthday_notificator_install.sh
 ./whitehall_checker_install.sh
+./main_bot_install.sh
 
 
