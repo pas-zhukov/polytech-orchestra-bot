@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from src.exceptions import ConcertosNotFoundException
 from src.utils.parser import get_concerto_today, get_concerto_by_date
-from src.models import User
+from src.models import User, Rehearsal
 
 
 def get_message_for_today() -> str:
@@ -19,17 +19,8 @@ def get_message_for_today() -> str:
 
 
 def get_message_for_next_rehearsal() -> str:
-    next_rehearsal_days_mapping = {
-        0: 4,  # MON
-        1: 3,  # TUE
-        2: 2,  # WED
-        3: 1,  # THU
-        4: 3,  # FRI
-        5: 2,  # SAT
-        6: 1   # SUN
-    }
-    today_date = datetime.now()
-    next_rehearsal_date = today_date + timedelta(days=next_rehearsal_days_mapping[today_date.weekday()])
+    next_rehearsal = Rehearsal.get_next_rehearsal()
+    next_rehearsal_date = next_rehearsal.datetime
 
     try:
         concerto = get_concerto_by_date(next_rehearsal_date)
