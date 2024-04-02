@@ -56,7 +56,7 @@ def get_monthly_forecast() -> str:
         concertos.append(concerto)
     message = "Прогноз места проведения репетиций, основанный на расписании Белого зала:\n"
     for i in range(len(concertos)):
-        message += f"{rehearsal.datetime.strftime('%d.%m.%Y')}: {'206' if concertos[i] else 'БЗ'}\n"
+        message += f"{rehearsals[i].datetime.strftime('%d.%m.%Y')}: {'206' if concertos[i] else 'БЗ'}\n"
     return message
 
 
