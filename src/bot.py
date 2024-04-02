@@ -2,7 +2,7 @@ from datetime import datetime
 
 from telebot import TeleBot
 
-from src.utils.messages import get_message_for_next_rehearsal, get_message_for_today
+from src.utils.messages import get_message_for_next_rehearsal, get_message_for_today, get_monthly_forecast
 
 
 class OrchestraBot:
@@ -36,6 +36,10 @@ class OrchestraBot:
                                                                       '/next - Проверить доступность Белого Зала на следующей репетиции.\n'
                                                                       '/poll - Запустить опрос: явка сегодня.\n'
                                                                       '')
+
+        @self.bot.message_handler(commands=['forecast'])
+        def forecast(message):
+            self.bot.send_message(message.chat.id, get_monthly_forecast())
 
     def start(self):
         self.bot.infinity_polling()

@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from src.exceptions import ConcertosNotFoundException
 from src.utils.parser import get_concerto_today, get_concerto_by_date
-from src.models import User, Rehearsal
+from src.models import User, Rehearsal, Concerto
 
 
 def get_message_for_today() -> str:
@@ -39,6 +39,26 @@ def get_message_for_next_rehearsal() -> str:
     except ConcertosNotFoundException:
         message = f'Согласно расписанию Белого Зала, {next_rehearsal_date.strftime("%d.%m.%Y")} там концертов не запланировано.'
     return message
+
+
+def get_monthly_forecast() -> str:
+    rehearsals = []
+    rehearsal = Rehearsal.get_next_rehearsal()
+    for _ in range(8):
+        rehearsals.append(rehearsal)
+        rehearsal = Rehearsal.get_next_rehearsal(rehearsal.datetime)
+    concertos = []
+    for rehearsal in rehearsals:
+        try:
+            concerto = get_concerto_by_date(rehearsal.datetime)
+        except ConcertosNotFoundException:
+            concerto = None
+        concertos.append(concerto)
+    message = "Прогноз места проведения репетиций, основанный на расписании Белого зала:\n"
+    for i in range(len(concertos)):
+        message += f"{rehearsal.datetime.strftime('%d.%m.%Y')}: {'206' if concertos[i] else 'БЗ'}\n"
+    return message
+
 
 
 def get_birthday_message(user: User) -> str:
