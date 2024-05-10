@@ -1,4 +1,5 @@
-from datetime import datetime, date, timedelta
+from datetime import datetime as dt
+from datetime import date, timedelta
 from enum import Enum
 
 
@@ -8,9 +9,9 @@ class Location(Enum):
 
 
 class Concerto:
-    def __init__(self, title: str, date: datetime):
+    def __init__(self, title: str, date_: dt):
         self.title: str = title
-        self.datetime: datetime = date
+        self.datetime: dt = date_
 
     def get_stringed_time(self):
         return self.datetime.strftime("%H:%M")
@@ -31,12 +32,12 @@ class User:
 
 
 class Rehearsal:
-    def __init__(self, datetime: datetime, place: Location = Location.WHITEHALL):
+    def __init__(self, datetime: dt, place: Location = Location.WHITEHALL):
         self.datetime = datetime
         self.place = place
 
     @staticmethod
-    def get_next_rehearsal(from_date: datetime = datetime.now()):
+    def get_next_rehearsal(from_date: dt = dt.now()):
         next_rehearsal_days_mapping = {
             0: 4,  # MON
             1: 3,  # TUE

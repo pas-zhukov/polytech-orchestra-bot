@@ -1,8 +1,6 @@
-from datetime import datetime, timedelta
-
 from src.exceptions import ConcertosNotFoundException
 from src.utils.parser import get_concerto_today, get_concerto_by_date
-from src.models import User, Rehearsal, Concerto
+from src.models import User, Rehearsal
 
 
 def get_message_for_today() -> str:
