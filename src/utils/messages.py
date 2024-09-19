@@ -20,9 +20,9 @@ def get_message_for_today_rehearsal() -> str:
         message = (f"Согласно расписанию Белого Зала, сегодня там концерт.\n"
                    f"Название: {concerto.title}\n"
                    f"Начало концерта: {concerto.get_stringed_time()}\n\n"
-                   f"Репетируем в 206.")
+                   f"В зал мы так и так не попали бы. Репетируем, как и всегда, в Евразии.")
     except ConcertosNotFoundException:
-        message = f"Согласно расписанию Белого Зала, сегодня там концертов не запланировано. Репетируем в зале!"
+        message = f"Согласно расписанию Белого Зала, сегодня там концертов не запланировано. Но, к сожалению, в БЗ мы больше не репетируем. Топаем в Евразию :("
     return message
 
 
@@ -54,7 +54,7 @@ def get_monthly_forecast() -> str:
         concertos.append(concerto)
     message = "Прогноз места проведения репетиций, основанный на расписании Белого зала:\n"
     for i in range(len(concertos)):
-        message += f"{rehearsals[i].datetime.strftime('%d.%m.%Y')}: {'206' if concertos[i] else 'БЗ'}\n"
+        message += f"{rehearsals[i].datetime.strftime('%d.%m.%Y')}: {'Евразия' if concertos[i] else 'Евразия, а мог бы быть БЗ :('}\n"
     return message
 
 
