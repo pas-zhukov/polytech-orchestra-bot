@@ -38,7 +38,9 @@ echo "[Unit]"
 echo "Description=Orchestra one-time birthday check bot"
 echo ""
 echo "[Timer]"
-echo "OnCalendar=11:00:00"
+# echo "OnCalendar=11:00:00"
+echo "OnCalendar=*-*-* 11:00:00 Europe/Moscow"
+echo "Persistent=true"
 
 
 systemctl daemon-reload
