@@ -22,7 +22,11 @@ class UserDeserializer:
         self.user_true = {
             "name": self.user_raw["ФИО"],
             "birthdate": datetime.strptime(self.user_raw["Дата рождения"], UserDeserializer.date_format).date() if self.user_raw["Дата рождения"] else None,
-            "instrument": self.user_raw["Инструмент"][0]["value"],
+            "instrument": (
+                self.user_raw["Инструмент"][0]["value"]
+                if self.user_raw["Инструмент"]
+                else None
+            ),
             "tg": self.user_raw["Телеграм"],
             "vk": self.user_raw["ВКонтакте"],
             "is_active": bool(self.user_raw["Активен"]),
