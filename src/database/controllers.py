@@ -13,20 +13,43 @@ USERS_TABLE_URL = "https://api.baserow.io/api/database/rows/table/230779/"
 def get_all_users(database_token: str):
     logger.info("Requesting users from Baserow")
 
-    response = requests.get(
-        USERS_TABLE_URL,
-        params={"user_field_names": "true"},
-        headers={"Authorization": f"Token {database_token}"},
-        timeout=30,
-    )
-    response.raise_for_status()
+    headers = {"Authorization": f"Token {database_token}"}
+    params = {"user_field_names": "true", "size": 200}
+    url = USERS_TABLE_URL
 
-    results = response.json()["results"]
-    users = [UserDeserializer(row).user for row in results]
+    all_users = []
+    page = 1
+
+    while url:
+        response = requests.get(
+            url,
+            params=params,
+            headers=headers,
+            timeout=30,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        results = data["results"]
+        all_users.extend(results)
+
+        logger.info(
+            "Loaded Baserow page %d: rows=%d, total_loaded=%d, has_next=%s",
+            page,
+            len(results),
+            len(all_users),
+            bool(data.get("next")),
+        )
+
+        url = data.get("next")
+        params = None  # Следующая страница уже содержит параметры в URL
+        page += 1
+
+    users = [UserDeserializer(row).user for row in all_users]
 
     logger.info(
-        "Loaded users from Baserow: rows=%d, deserialized=%d",
-        len(results),
+        "Finished loading users: rows=%d, deserialized=%d",
+        len(all_users),
         len(users),
     )
 
