@@ -4,21 +4,17 @@
 Регулярный запуск предполагается настраивать при помощи systemd.
 """
 import logging
-from datetime import datetime
 
-from telebot import TeleBot
 from environs import Env
+from telebot import TeleBot, apihelper
 
 from src.database.controllers import get_active_users_by_birthdate
 from src.utils.messages import get_birthday_message
-
 
 logger = logging.getLogger(__name__)
 
 
 def main():
-    logger.info("Starting birthday notification check")
-
     env = Env()
     env.read_env()
 
@@ -26,41 +22,40 @@ def main():
     database_token = env.str("DATABASE_TOKEN")
     admin_ids = env.list("ADMIN_IDS")
 
-    logger.info("Configuration loaded. Admins count: %d", len(admin_ids))
+    # Настройка SOCKS5-прокси для Telegram Bot API
+    proxy_host = env.str("TG_PROXY_HOST")
+    proxy_port = env.int("TG_PROXY_PORT")
+    proxy_username = env.str("TG_PROXY_USERNAME", default="")
+    proxy_password = env.str("TG_PROXY_PASSWORD", default="")
+
+    proxy_auth = ""
+    if proxy_username:
+        proxy_auth = f"{proxy_username}:{proxy_password}@"
+
+    proxy_url = (
+        f"socks5h://{proxy_auth}"
+        f"{proxy_host}:{proxy_port}"
+    )
+
+    apihelper.proxy = {
+        "http": proxy_url,
+        "https": proxy_url,
+    }
 
     bot = TeleBot(bot_token)
-    today = datetime.now().date()
-
-    logger.info("Checking birthdays for %s", today)
 
     birthday_today_users = get_active_users_by_birthdate(
         database_token,
-        today,
+        __import__("datetime").datetime.now().date(),
     )
-
-    logger.info("Found %d birthday(s)", len(birthday_today_users))
-
-    if not birthday_today_users:
-        logger.info("No birthdays today. Finishing")
-        return
-
-    sent_count = 0
 
     for user in birthday_today_users:
         message = get_birthday_message(user)
 
         for admin in admin_ids:
-            logger.info(
-                "Sending birthday notification to admin %s",
-                admin,
-            )
             bot.send_message(admin, message)
-            sent_count += 1
 
-    logger.info(
-        "Birthday notification check completed. Messages sent: %d",
-        sent_count,
-    )
+    logger.info("Birthday notifications sent successfully")
 
 
 if __name__ == "__main__":
@@ -72,6 +67,6 @@ if __name__ == "__main__":
     try:
         main()
     except Exception:
-        logger.exception("Birthday notification check failed")
+        logger.exception("Birthday notification bot failed")
         raise
         
