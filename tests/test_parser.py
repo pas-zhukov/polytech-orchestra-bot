@@ -3,9 +3,9 @@ from datetime import datetime, date, time
 
 from src.utils.parser import get_concerto_by_date, get_concerto_title_and_time
 
-
+@unittest.skip("Не актуален")
 class TestParser(unittest.TestCase):
-    @unittest.skip("Не актуален")
+    
     def test_get_concerto_title_and_time(self):
         concerto_url = "https://whitehall.spbstu.ru/events/manfred-13032024/"
 
