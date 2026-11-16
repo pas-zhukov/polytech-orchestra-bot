@@ -7,6 +7,9 @@ SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}.service"
 TIMER_PATH="/etc/systemd/system/${SERVICE_NAME}.timer"
 TARGET="birthday_notification_bot.py"
 
+# Disable while the unit still has [Install], or the boot symlink stays.
+systemctl disable ${SERVICE_NAME}.service || true
+
 # Remove old version
 if [[ -f $SERVICE_PATH ]]; then
     echo "---"
@@ -28,8 +31,6 @@ echo "ExecStart=${INSTALL_PATH}/venv/bin/python3 ${INSTALL_PATH}${TARGET}"
 echo ""
 echo "User=root"
 echo "Group=root"
-echo "[Install]"
-echo "WantedBy=multi-user.target"
 
 touch $TIMER_PATH
 # Fill .timer file
@@ -41,9 +42,13 @@ echo "[Timer]"
 # echo "OnCalendar=11:00:00"
 echo "OnCalendar=*-*-* 09:10:00 Europe/Moscow"
 echo "Persistent=true"
+echo ""
+echo "[Install]"
+echo "WantedBy=timers.target"
 
+# stdout is still the timer file
+exec 1>&2
 
 systemctl daemon-reload
-systemctl enable ${SERVICE_NAME}.service
 systemctl enable ${SERVICE_NAME}.timer
 systemctl start ${SERVICE_NAME}.timer
